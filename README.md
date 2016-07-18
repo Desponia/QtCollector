@@ -1,0 +1,2 @@
+# QtCollector
+Test
