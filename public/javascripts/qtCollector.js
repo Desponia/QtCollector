@@ -25,17 +25,18 @@
     addEvent = function(t,f,uc){
         w.addEventListener ? w.addEventListener(t, f, uc) : w.attachEvent && w.attachEvent("on" + t, f);
     },
-    fnSendData = function () {
-        var domain =  'https://fierce-garden-33452.herokuapp.com';
+    fnImageBeacon = function () {
+        var domain =  'https://qtcollector.herokuapp.com';
+        var img = new Image();
+        img.onload = img.onerror = function (){
 
-
-
+        };
+        img.src = domain + '/qtLogger' + '?' + 'cookieId=11&value=22&cookieExpires=33';
     }
-
 
     fnUnloadEvent  = function(){
 	    w[q].push(targetInfo);
-
+        fnImageBeacon();
     };
 
 	w[q] = w[q] || [];
