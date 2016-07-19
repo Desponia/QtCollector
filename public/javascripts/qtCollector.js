@@ -33,8 +33,8 @@
         img.onload = img.onerror = function (){
 
         };
-        img.src = domain + '/qtLogger' + '?' + 'cookieId='+fnCookie()+'&value='+fnGetValues()+'cookieExpires=' + fnCookieExpires();
-
+        var src = domain + '/qtLogger' + '?' + 'cookieId='+fnCookie()+'&value='+fnGetValues()+'cookieExpires=' + fnCookieExpires();
+        img.src = src;
     },
     fnCookie = function (){
         function setCookie(cname, cvalue, exdays){
