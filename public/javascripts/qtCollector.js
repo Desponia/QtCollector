@@ -64,8 +64,7 @@
         return getCookie(key) || setCookie(key, makeCookieKey(), 90);
     },
     fnCookieExpires = function (){
-
-        return v;
+        return '';
     }
     fnGetValues = function (){
         return targetInfo.toSource();
