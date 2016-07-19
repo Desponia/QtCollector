@@ -17,11 +17,20 @@
             };
 
             var e = w.event.srcElement;
+            targetInfo = {
+                tag : e.tagName,
+                value :  fnGetTagValue(),
+                url : w.location.href,
+                title : w.location.href,
+                lang : window.navigator.language
+            };
+            /*
             targetInfo.tag = e.tagName;
             targetInfo.value = fnGetTagValue();
             targetInfo.url = w.location.href;
             targetInfo.title = document.title;
             targetInfo.lang = window.navigator.language;
+            */
         }
 	},
     addEvent = function(t,f,uc){
@@ -33,7 +42,7 @@
         img.onload = img.onerror = function (){
 
         };
-        var src = domain + '/qtLogger' + '?' + 'cookieId='+fnCookie()+'&value='+fnGetValues()+'cookieExpires=' + fnCookieExpires();
+        var src = domain + '/qtLogger' + '?' + 'cookieId='+fnCookie()+'&value='+fnGetValues(targetInfo)+'&cookieExpires=' + fnCookieExpires();
         img.src = src;
     },
     fnCookie = function (){
@@ -41,7 +50,7 @@
             var d = new Date();
             d.setDate(d.getDate() + exdays);
             var expires = "expires="+d.toGMTString();
-            document.cookie = cname + "=" + cvalue + "; " + expires +";path=/;";
+            document.cookie = cname + "=" + cvalue + "; " + expires +"; path=/;";
         }
 
         function getCookie(cname){
@@ -64,10 +73,10 @@
         return getCookie(key) || setCookie(key, makeCookieKey(), 90);
     },
     fnCookieExpires = function (){
-        return '';
+        return '90';
     }
-    fnGetValues = function (){
-        return targetInfo.toSource();
+    fnGetValues = function (obj){
+        return JSON.stringify(obj)
     }
 
     fnUnloadEvent  = function(){
