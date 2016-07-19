@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <table border="1" >
+      <th> Row ID</th>
+      <th> Cookie ID</th>
+      <th> Value </th>
+      <th> Cookie Expires Time</th>
+    <%
+      for( var i=0 ; i < rows.length  ; i++ ){
+        var item = rows[i];
+    %>
+      <tr>
+        <td><%=item.rowid%></td>
+        <td><%=item.cookieid%></td>
+        <td><%=item.value%></td>
+        <td><%=item.cookieexpires%></td>
+      </tr>
+    <%
+      }
+    %>
+  </table>
+  </body>
+</html>

@@ -40,7 +40,6 @@ app.get('/qtLogger', function(req, res){
   var client = new pg.Client(params);
   var url_parts = url.parse(req.url, true);
   var p = url_parts.query;
-  var results= [];
   client.connect();
   var data ={
     cookieId : p.cookieId,
@@ -74,9 +73,8 @@ app.get('/qtLoggerList', function(req, res){
 
   query.on('end', function() {
     client.end();
-    return res.json(results);
+    res.render('qtLoggerList',{title: '활동 이력', rows:results});
   });
-
 });
 
 // catch 404 and forward to error handler
