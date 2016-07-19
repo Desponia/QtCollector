@@ -4,9 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var url = require('url');
 
+var pg = require('pg');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+
+var params = {
+  host: 'ec2-54-221-246-85.compute-1.amazonaws.com'
+  ,user: 'lzcvcflzbvvwcw'
+  ,password: 'nPEEpYmhuDKAOuA_RNIxfB4GI_'
+  ,database: 'd41lqf8abjm58s'
+  ,port: '5432'
+  ,ssl: true
+}
 
 var app = express();
 
@@ -24,6 +35,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+app.get('/qtLogger', function(req, res){
+  var client = new pg.Client(params);
+
+  var url_parts = url.parse(req.url, true);
+  var p = url_parts.query;
+  var results= [];
+  client.connect();
+  var data ={
+    cookieId : p.cookieId,
+    value : p.value,
+    cookieExpires : p.cookieExpires
+  }
+  client.query("INSERT INTO taglog(cookieId,value,cookieExpires) values ($1, $2, $3)",[data.cookieId,data.value,data.cookieExpires]);
+
+  var query = client.query("SELECT * FROM taglog");
+
+  // Stream results back one row at a time
+  query.on('row', function(row) {
+    results.push(row);
+  });
+
+  query.on('end', function() {
+    client.end();
+    return res.json(results);
+  });
+
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
