@@ -25,8 +25,17 @@
     addEvent = function(t,f,uc){
         w.addEventListener ? w.addEventListener(t, f, uc) : w.attachEvent && w.attachEvent("on" + t, f);
     },
+    fnSendData = function () {
+        var domain =  'https://fierce-garden-33452.herokuapp.com';
+
+
+
+    }
+
+
     fnUnloadEvent  = function(){
 	    w[q].push(targetInfo);
+
     };
 
 	w[q] = w[q] || [];
