@@ -38,7 +38,6 @@ app.use('/users', users);
 
 app.get('/qtLogger', function(req, res){
   var client = new pg.Client(params);
-
   var url_parts = url.parse(req.url, true);
   var p = url_parts.query;
   var results= [];
@@ -49,6 +48,22 @@ app.get('/qtLogger', function(req, res){
     cookieExpires : p.cookieExpires
   }
   client.query("INSERT INTO taglog(cookieId,value,cookieExpires) values ($1, $2, $3)",[data.cookieId,data.value,data.cookieExpires]);
+
+  res.status(200);
+  res.end();
+});
+
+app.get('/qtLogger', function(req, res){
+  var client = new pg.Client(params);
+  var url_parts = url.parse(req.url, true);
+  var p = url_parts.query;
+  var results= [];
+  client.connect();
+  var data ={
+    cookieId : p.cookieId,
+    value : p.value,
+    cookieExpires : p.cookieExpires
+  }
 
   var query = client.query("SELECT * FROM taglog");
 
