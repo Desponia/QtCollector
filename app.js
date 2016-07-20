@@ -46,10 +46,16 @@ app.get('/qtLogger', function(req, res){
     value : p.value,
     cookieExpires : p.cookieExpires
   }
-  client.query("INSERT INTO taglog(cookieId,value,cookieExpires) values ($1, $2, $3)",[data.cookieId,data.value,data.cookieExpires]);
-  client.end();
-  res.status(200);
-  res.end();
+  client.query("INSERT INTO taglog(cookieId,value,cookieExpires) values ($1, $2, $3)",[data.cookieId,data.value,data.cookieExpires],
+      function(err){
+
+      if( err ){
+        console.log(err);
+      }
+        client.end();
+        res.status(200);
+        res.end();
+      });
 });
 
 
