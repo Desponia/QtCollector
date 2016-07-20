@@ -46,7 +46,7 @@ app.get('/qtLogger', function(req, res){
     value : p.value,
     cookieExpires : p.cookieExpires
   }
-  client.query("INSERT INTO taglog(cookieId,value,cTime,cookieExpires) values ($1, $2,now(), $3)",[data.cookieId,data.value,data.cookieExpires]);
+  client.query("INSERT INTO taglog(cookieId,value,cookieExpires) values ($1, $2, $3)",[data.cookieId,data.value,data.cookieExpires]);
   client.end();
   res.status(200);
   res.end();
