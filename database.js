@@ -21,7 +21,9 @@ var query = client.query('CREATE TABLE taglog( ' +
     ' rowId SERIAL PRIMARY KEY,' +
 ' cookieId VARCHAR(40) not null,' +
 ' value VARCHAR(1000),' +
-' cookieExpires VARCHAR(20))'
+' cookieExpires VARCHAR(20),' +
+' cTime DATE' +
+    ')'
 );
 
 query.on('end', function() { client.end(); });

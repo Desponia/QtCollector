@@ -21,16 +21,9 @@
                 tag : e.tagName,
                 value :  fnGetTagValue(),
                 url : w.location.href,
-                title : w.location.href,
+                title : document.title,
                 lang : window.navigator.language
             };
-            /*
-            targetInfo.tag = e.tagName;
-            targetInfo.value = fnGetTagValue();
-            targetInfo.url = w.location.href;
-            targetInfo.title = document.title;
-            targetInfo.lang = window.navigator.language;
-            */
         }
 	},
     addEvent = function(t,f,uc){

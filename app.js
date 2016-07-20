@@ -46,8 +46,19 @@ app.get('/qtLogger', function(req, res){
     value : p.value,
     cookieExpires : p.cookieExpires
   }
-  client.query("INSERT INTO taglog(cookieId,value,cookieExpires) values ($1, $2, $3)",[data.cookieId,data.value,data.cookieExpires]);
+  client.query("INSERT INTO taglog(cookieId,value,cTime,cookieExpires) values ($1, $2,now(), $3)",[data.cookieId,data.value,data.cookieExpires]);
+  client.end();
+  res.status(200);
+  res.end();
+});
 
+app.get('/del', function(req, res) {
+  var client = new pg.Client(params);
+  var url_parts = url.parse(req.url, true);
+  var p = url_parts.query;
+  client.connect();
+  client.query("DELETE FROM taglog");
+  client.end();
   res.status(200);
   res.end();
 });
@@ -57,7 +68,7 @@ app.get('/qtLoggerList', function(req, res){
   var url_parts = url.parse(req.url, true);
   var p = url_parts.query;
   var results= [];
-  client.connect();
+  var con = client.connect();
   var data ={
     cookieId : p.cookieId,
     value : p.value,
@@ -70,7 +81,6 @@ app.get('/qtLoggerList', function(req, res){
   query.on('row', function(row) {
     results.push(row);
   });
-
   query.on('end', function() {
     client.end();
     res.render('qtLoggerList',{title: '활동 이력', rows:results});
