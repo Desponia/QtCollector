@@ -52,16 +52,6 @@ app.get('/qtLogger', function(req, res){
   res.end();
 });
 
-app.get('/del', function(req, res) {
-  var client = new pg.Client(params);
-  var url_parts = url.parse(req.url, true);
-  var p = url_parts.query;
-  client.connect();
-  client.query("DELETE FROM taglog");
-  client.end();
-  res.status(200);
-  res.end();
-});
 
 app.get('/qtLoggerList', function(req, res){
   var client = new pg.Client(params);
